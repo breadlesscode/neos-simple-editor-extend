@@ -1,0 +1,23 @@
+{
+    "name": "breadlesscode/neos-simple-editor-extend",
+    "description": "The simlpe way to extend the Neos CMS editor",
+    "type": "neos-plugin",
+    "license": "MIT",
+    "require": {
+        "neos/neos": "~4.2 || dev-master",
+        "neos/neos-ui-compiled": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Breadlesscode\\SimpleEditorExtend\\": "Classes/"
+        }
+    },
+    "archive": {
+        "exclude": ["Documentation/"]
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Breadlesscode.SimpleEditorExtend"
+        }
+    }
+}

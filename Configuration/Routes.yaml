@@ -1,0 +1,7 @@
+-
+  name: 'Ajax endpoint for simple editor config'
+  uriPattern: 'breadlesscode/editor-config'
+  defaults:
+    '@package': 'Breadlesscode.SimpleEditorExtend'
+    '@controller': 'CkeditorConfiguration'
+    '@action': 'config'
