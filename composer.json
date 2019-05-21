@@ -3,6 +3,14 @@
     "description": "The simlpe way to extend the Neos CMS editor",
     "type": "neos-plugin",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Marvin Kuhn",
+            "email": "marvin@kuhnweblab.com",
+            "homepage": "https://kuhnweblab.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "neos/neos": "~4.2 || dev-master",
         "neos/neos-ui-compiled": "^3.0"
