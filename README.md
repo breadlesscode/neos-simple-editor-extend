@@ -34,13 +34,13 @@ Breadlesscode:
         'Test.Test:MyCustomSpan2':
           extensionName: 'exampleExtension2'
           icon: 'rocket'
-          tooltip: 'Mark the text in color lime'
+          tooltip: 'Mark the text in color red'
           position: 'before exampleExtension'
           formatting:
             tag: 'span'
             classes: 'test-class-2'
             styles:
-              background-color: 'lime'
+              background-color: 'red'
 ```
 
 Now you can use your new formattings like this:
