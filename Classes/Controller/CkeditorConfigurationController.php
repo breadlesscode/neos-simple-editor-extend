@@ -10,6 +10,11 @@ use Neos\Flow\Mvc\Controller\ActionController;
 class CkeditorConfigurationController extends ActionController
 {
     /**
+     * @var string
+     */
+    protected $defaultViewObjectName = \Neos\Flow\Mvc\View\JsonView::class;
+
+    /**
    * @Flow\InjectConfiguration(path="buttons")
    * @var array
      */
@@ -17,6 +22,6 @@ class CkeditorConfigurationController extends ActionController
 
     public function configAction()
     {
-        return \json_encode($this->ckeditorConfig);
+        $this->view->assign('value', $this->ckeditorConfig);
     }
 }
