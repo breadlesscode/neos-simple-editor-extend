@@ -6,7 +6,7 @@ This is a small plugin to simply add some buttons to the Neos CMS CKEditor, with
 Most of the time you have to make small adjustments to a package (e.g., the configuration in Settings.yaml). Because of that, it is important to add the corresponding package to the composer from your theme package. Mostly this is the site package located under Packages/Sites/. To install it correctly go to your theme package (e.g.Packages/Sites/Foo.Bar) and run following command:
 
 ```bash
-composer require breadlesscode/simple-editor-extend --no-update
+composer require breadlesscode/neos-simple-editor-extend --no-update
 ```
 
 The --no-update command prevent the automatic update of the dependencies. After the package was added to your theme composer.json, go back to the root of the Neos installation and run composer update. Your desired package is now installed correctly.
