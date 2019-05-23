@@ -1,7 +1,5 @@
 import manifest from '@neos-project/neos-ui-extensibility';
-import {$get} from 'plow-js';
-import ButtonComponent from './ButtonComponent';
-import {getCkeditorPlugin, getCkeditorPluginConfig} from './CkeditorPluginUtils';
+import {getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig} from './CkeditorPluginUtils';
 import backend from '@neos-project/neos-ui-backend-connector';
 
 manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, globalRegistry => {
@@ -15,18 +13,19 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, globalRegistry => {
             const options = buttonConfig[formattingName];
             const commandName = options.extensionName + 'Command';
 
-            richtextToolbar.set(options.extensionName, {
-                commandName: commandName,
-                isActive: $get(commandName),
-                isVisible: $get(['formatting', formattingName]),
-                component: ButtonComponent(commandName),
-                icon: options.icon,
-                tooltip: options.tooltip,
-            }, options.position);
-            config.set(options.extensionName, getCkeditorPluginConfig(
-                formattingName,
-                getCkeditorPlugin(options.extensionName, commandName, options.formatting)
-            ));
+            richtextToolbar.set(
+                options.extensionName,
+                getRichtextToolbarConfig(commandName, formattingName, options.icon, options.tooltip),
+                options.position
+            );
+            
+            config.set(
+                options.extensionName,
+                getCkeditorPluginConfig(
+                    formattingName,
+                    getCkeditorPlugin(options.extensionName, commandName, options.formatting)
+                )
+            );
         });
     });
 });

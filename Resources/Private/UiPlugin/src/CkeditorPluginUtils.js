@@ -1,6 +1,7 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecommand';
 import {$add, $get} from 'plow-js';
+import ButtonComponent from './ButtonComponent';
 
 const getCkeditorPlugin = function(extensionName, commandName, formatting) {
     const attributeName = extensionName + 'Attribute';
@@ -40,4 +41,15 @@ const getCkeditorPluginConfig = function(formattingName, ckeditorPlugin) {
     }
 };
 
-export { getCkeditorPlugin, getCkeditorPluginConfig};
+const getRichtextToolbarConfig = function(commandName, formattingName, icon, tooltip) {
+    return {
+        commandName: commandName,
+        isActive: $get(commandName),
+        isVisible: $get(['formatting', formattingName]),
+        component: ButtonComponent(commandName),
+        icon: icon,
+        tooltip: tooltip,
+    };
+}
+
+export { getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig};

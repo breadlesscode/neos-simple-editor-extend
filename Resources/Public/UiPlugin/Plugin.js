@@ -5677,7 +5677,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getCkeditorPluginConfig = exports.getCkeditorPlugin = undefined;
+exports.getRichtextToolbarConfig = exports.getCkeditorPluginConfig = exports.getCkeditorPlugin = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -5690,6 +5690,10 @@ var _attributecommand = __webpack_require__(/*! @ckeditor/ckeditor5-basic-styles
 var _attributecommand2 = _interopRequireDefault(_attributecommand);
 
 var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
+
+var _ButtonComponent = __webpack_require__(/*! ./ButtonComponent */ "./src/ButtonComponent.js");
+
+var _ButtonComponent2 = _interopRequireDefault(_ButtonComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5748,8 +5752,20 @@ var getCkeditorPluginConfig = function getCkeditorPluginConfig(formattingName, c
     };
 };
 
+var getRichtextToolbarConfig = function getRichtextToolbarConfig(commandName, formattingName, icon, tooltip) {
+    return {
+        commandName: commandName,
+        isActive: (0, _plowJs.$get)(commandName),
+        isVisible: (0, _plowJs.$get)(['formatting', formattingName]),
+        component: (0, _ButtonComponent2.default)(commandName),
+        icon: icon,
+        tooltip: tooltip
+    };
+};
+
 exports.getCkeditorPlugin = getCkeditorPlugin;
 exports.getCkeditorPluginConfig = getCkeditorPluginConfig;
+exports.getRichtextToolbarConfig = getRichtextToolbarConfig;
 
 /***/ }),
 
@@ -5781,12 +5797,6 @@ var _neosUiExtensibility = __webpack_require__(/*! @neos-project/neos-ui-extensi
 
 var _neosUiExtensibility2 = _interopRequireDefault(_neosUiExtensibility);
 
-var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
-
-var _ButtonComponent = __webpack_require__(/*! ./ButtonComponent */ "./src/ButtonComponent.js");
-
-var _ButtonComponent2 = _interopRequireDefault(_ButtonComponent);
-
 var _CkeditorPluginUtils = __webpack_require__(/*! ./CkeditorPluginUtils */ "./src/CkeditorPluginUtils.js");
 
 var _neosUiBackendConnector = __webpack_require__(/*! @neos-project/neos-ui-backend-connector */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-backend-connector/index.js");
@@ -5808,14 +5818,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
             var options = buttonConfig[formattingName];
             var commandName = options.extensionName + 'Command';
 
-            richtextToolbar.set(options.extensionName, {
-                commandName: commandName,
-                isActive: (0, _plowJs.$get)(commandName),
-                isVisible: (0, _plowJs.$get)(['formatting', formattingName]),
-                component: (0, _ButtonComponent2.default)(commandName),
-                icon: options.icon,
-                tooltip: options.tooltip
-            }, options.position);
+            richtextToolbar.set(options.extensionName, (0, _CkeditorPluginUtils.getRichtextToolbarConfig)(commandName, formattingName, options.icon, options.tooltip), options.position);
+
             config.set(options.extensionName, (0, _CkeditorPluginUtils.getCkeditorPluginConfig)(formattingName, (0, _CkeditorPluginUtils.getCkeditorPlugin)(options.extensionName, commandName, options.formatting)));
         });
     });
