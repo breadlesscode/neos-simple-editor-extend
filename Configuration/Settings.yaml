@@ -8,4 +8,5 @@ Neos:
   Flow:
     mvc:
       routes:
-        'Breadlesscode.SimpleEditorExtend': TRUE
+        'Breadlesscode.SimpleEditorExtend': 
+          positions: 'start'
