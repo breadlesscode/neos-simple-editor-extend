@@ -9,4 +9,4 @@ Neos:
     mvc:
       routes:
         'Breadlesscode.SimpleEditorExtend': 
-          positions: 'start'
+          position: 'start'
