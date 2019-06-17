@@ -7,6 +7,15 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, globalRegistry => {
     const config = globalRegistry.get('ckEditor5').get('config');
     const { getJsonResource } = backend.get().endpoints;
     const configUri = '/breadlesscode/editor-config';
+    /**
+     * Debugging
+     */
+    console.log('Has: ');
+    console.log(globalRegistry.get('frontendConfiguration').has('Breadlesscode.SimpleEditorExtend'))
+    console.log('Get: ');
+    console.log(globalRegistry.get('frontendConfiguration').get('Breadlesscode.SimpleEditorExtend'))
+    console.log('Registry: ');
+    console.log(globalRegistry.get('frontendConfiguration')._registry)
 
     getJsonResource(configUri).then((buttonConfig) => {
         Object.keys(buttonConfig).forEach((formattingName) => {
