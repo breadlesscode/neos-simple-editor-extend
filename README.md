@@ -18,29 +18,31 @@ The --no-update command prevent the automatic update of the dependencies. After 
 ## Example configuration
 
 ```yaml
-Breadlesscode:
-    SimpleEditorExtend:
-      buttons:
-        'Test.Test:MyCustomSpan':
-          extensionName: 'exampleExtension'
-          icon: 'plus-square'
-          tooltip: 'Mark the text in color green'
-          position: 'before strong'
-          formatting:
-            tag: 'span'
-            classes: 'test-class'
-            styles:
-              background-color: 'green'
-        'Test.Test:MyCustomSpan2':
-          extensionName: 'exampleExtension2'
-          icon: 'rocket'
-          tooltip: 'Mark the text in color red'
-          position: 'before exampleExtension'
-          formatting:
-            tag: 'span'
-            classes: 'test-class-2'
-            styles:
-              background-color: 'red'
+Neos:
+  Neos:
+    Ui:
+      frontendConfiguration:
+        'Breadlesscode.SimpleEditorExtend:Buttons':
+          'Test.Test:MyCustomSpan':
+            extensionName: 'exampleExtension'
+            icon: 'plus-square'
+            tooltip: 'Mark the text in color green'
+            position: 'before strong'
+            formatting:
+              tag: 'span'
+              classes: 'test-class'
+              styles:
+                background-color: 'green'
+          'Test.Test:MyCustomSpan2':
+            extensionName: 'exampleExtension2'
+            icon: 'rocket'
+            tooltip: 'Mark the text in color red'
+            position: 'before exampleExtension'
+            formatting:
+              tag: 'span'
+              classes: 'test-class-2'
+              styles:
+                background-color: 'red'
 ```
 
 Now you can use your new formattings like this:

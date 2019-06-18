@@ -5,8 +5,3 @@ Neos:
         javascript:
           'Breadlesscode.SimpleEditorExtend:UiPlugin':
             resource: resource://Breadlesscode.SimpleEditorExtend/Public/UiPlugin/Plugin.js
-  Flow:
-    mvc:
-      routes:
-        'Breadlesscode.SimpleEditorExtend': 
-          position: 'start'
