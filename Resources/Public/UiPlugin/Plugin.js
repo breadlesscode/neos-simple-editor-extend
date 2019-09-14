@@ -5216,16 +5216,10 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
     value.forEach(function(subValue) {
       result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
     });
-
-    return result;
-  }
-
-  if (Object(_isMap_js__WEBPACK_IMPORTED_MODULE_17__["default"])(value)) {
+  } else if (Object(_isMap_js__WEBPACK_IMPORTED_MODULE_17__["default"])(value)) {
     value.forEach(function(subValue, key) {
       result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
     });
-
-    return result;
   }
 
   var keysFunc = isFull
@@ -7445,8 +7439,8 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
     return;
   }
   Object(_baseFor_js__WEBPACK_IMPORTED_MODULE_2__["default"])(source, function(srcValue, key) {
+    stack || (stack = new _Stack_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
     if (Object(_isObject_js__WEBPACK_IMPORTED_MODULE_4__["default"])(srcValue)) {
-      stack || (stack = new _Stack_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
       Object(_baseMergeDeep_js__WEBPACK_IMPORTED_MODULE_3__["default"])(object, source, key, srcIndex, baseMerge, customizer, stack);
     }
     else {
@@ -11211,15 +11205,18 @@ function createRelationalOperation(operator) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _toInteger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toInteger.js */ "./node_modules/lodash-es/toInteger.js");
-/* harmony import */ var _toNumber_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toNumber.js */ "./node_modules/lodash-es/toNumber.js");
-/* harmony import */ var _toString_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toString.js */ "./node_modules/lodash-es/toString.js");
+/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+/* harmony import */ var _toInteger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toInteger.js */ "./node_modules/lodash-es/toInteger.js");
+/* harmony import */ var _toNumber_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toNumber.js */ "./node_modules/lodash-es/toNumber.js");
+/* harmony import */ var _toString_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toString.js */ "./node_modules/lodash-es/toString.js");
+
 
 
 
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMin = Math.min;
+var nativeIsFinite = _root_js__WEBPACK_IMPORTED_MODULE_0__["default"].isFinite,
+    nativeMin = Math.min;
 
 /**
  * Creates a function like `_.round`.
@@ -11231,15 +11228,15 @@ var nativeMin = Math.min;
 function createRound(methodName) {
   var func = Math[methodName];
   return function(number, precision) {
-    number = Object(_toNumber_js__WEBPACK_IMPORTED_MODULE_1__["default"])(number);
-    precision = precision == null ? 0 : nativeMin(Object(_toInteger_js__WEBPACK_IMPORTED_MODULE_0__["default"])(precision), 292);
-    if (precision) {
+    number = Object(_toNumber_js__WEBPACK_IMPORTED_MODULE_2__["default"])(number);
+    precision = precision == null ? 0 : nativeMin(Object(_toInteger_js__WEBPACK_IMPORTED_MODULE_1__["default"])(precision), 292);
+    if (precision && nativeIsFinite(number)) {
       // Shift with exponential notation to avoid floating-point issues.
       // See [MDN](https://mdn.io/round#Examples) for more details.
-      var pair = (Object(_toString_js__WEBPACK_IMPORTED_MODULE_2__["default"])(number) + 'e').split('e'),
+      var pair = (Object(_toString_js__WEBPACK_IMPORTED_MODULE_3__["default"])(number) + 'e').split('e'),
           value = func(pair[0] + 'e' + (+pair[1] + precision));
 
-      pair = (Object(_toString_js__WEBPACK_IMPORTED_MODULE_2__["default"])(value) + 'e').split('e');
+      pair = (Object(_toString_js__WEBPACK_IMPORTED_MODULE_3__["default"])(value) + 'e').split('e');
       return +(pair[0] + 'e' + (+pair[1] - precision));
     }
     return func(number);
@@ -14838,7 +14835,7 @@ var root = _freeGlobal_js__WEBPACK_IMPORTED_MODULE_0__["default"] || freeSelf ||
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
- * Gets the value at `key`, unless `key` is "__proto__".
+ * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
  *
  * @private
  * @param {Object} object The object to query.
@@ -14846,6 +14843,10 @@ __webpack_require__.r(__webpack_exports__);
  * @returns {*} Returns the property value.
  */
 function safeGet(object, key) {
+  if (key === 'constructor' && typeof object[key] === 'function') {
+    return;
+  }
+
   if (key == '__proto__') {
     return;
   }
@@ -18694,6 +18695,7 @@ function debounce(func, wait, options) {
       }
       if (maxing) {
         // Handle invocations in a tight loop.
+        clearTimeout(timerId);
         timerId = setTimeout(timerExpired, wait);
         return invokeFunc(lastCallTime);
       }
@@ -25017,7 +25019,7 @@ __webpack_require__.r(__webpack_exports__);
  * @license
  * Lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="es" -o ./`
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -25060,7 +25062,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /** Used as the semantic version number. */
-var VERSION = '4.17.11';
+var VERSION = '4.17.15';
 
 /** Used to compose bitmasks for function metadata. */
 var WRAP_BIND_KEY_FLAG = 2;
@@ -25621,10 +25623,11 @@ Object(_arrayEach_js__WEBPACK_IMPORTED_MODULE_14__["default"])(['pop', 'push', '
 Object(_baseForOwn_js__WEBPACK_IMPORTED_MODULE_16__["default"])(_LazyWrapper_js__WEBPACK_IMPORTED_MODULE_11__["default"].prototype, function(func, methodName) {
   var lodashFunc = _wrapperLodash_js__WEBPACK_IMPORTED_MODULE_35__["default"][methodName];
   if (lodashFunc) {
-    var key = (lodashFunc.name + ''),
-        names = _realNames_js__WEBPACK_IMPORTED_MODULE_32__["default"][key] || (_realNames_js__WEBPACK_IMPORTED_MODULE_32__["default"][key] = []);
-
-    names.push({ 'name': methodName, 'func': lodashFunc });
+    var key = lodashFunc.name + '';
+    if (!hasOwnProperty.call(_realNames_js__WEBPACK_IMPORTED_MODULE_32__["default"], key)) {
+      _realNames_js__WEBPACK_IMPORTED_MODULE_32__["default"][key] = [];
+    }
+    _realNames_js__WEBPACK_IMPORTED_MODULE_32__["default"][key].push({ 'name': methodName, 'func': lodashFunc });
   }
 });
 
@@ -26633,7 +26636,7 @@ __webpack_require__.r(__webpack_exports__);
  * @license
  * Lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="es" -o ./`
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -33164,6 +33167,12 @@ var reNoMatch = /($^)/;
 /** Used to match unescaped characters in compiled string literals. */
 var reUnescapedString = /['\n\r\u2028\u2029\\]/g;
 
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
 /**
  * Creates a compiled template function that can interpolate data properties
  * in "interpolate" delimiters, HTML-escape interpolated data properties in
@@ -33299,7 +33308,14 @@ function template(string, options, guard) {
   , 'g');
 
   // Use a sourceURL for easier debugging.
-  var sourceURL = 'sourceURL' in options ? '//# sourceURL=' + options.sourceURL + '\n' : '';
+  // The sourceURL gets injected into the source that's eval-ed, so be careful
+  // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+  // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
+  var sourceURL = hasOwnProperty.call(options, 'sourceURL')
+    ? ('//# sourceURL=' +
+       (options.sourceURL + '').replace(/[\r\n]/g, ' ') +
+       '\n')
+    : '';
 
   string.replace(reDelimiters, function(match, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
     interpolateValue || (interpolateValue = esTemplateValue);
@@ -33330,7 +33346,9 @@ function template(string, options, guard) {
 
   // If `variable` is not specified wrap a with-statement around the generated
   // code to add the data object to the top of the scope chain.
-  var variable = options.variable;
+  // Like with sourceURL, we take care to not check the option's prototype,
+  // as this configuration is a code injection vector.
+  var variable = hasOwnProperty.call(options, 'variable') && options.variable;
   if (!variable) {
     source = 'with (obj) {\n' + source + '\n}\n';
   }
@@ -37286,6 +37304,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var richtextToolbar = globalRegistry.get('ckEditor5').get('richtextToolbar');
     var ckEditorConfig = globalRegistry.get('ckEditor5').get('config');
     var buttonConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:Buttons'];
+
+    if (!buttonConfig) {
+        return;
+    }
 
     Object.keys(buttonConfig).forEach(function (formattingName) {
         var options = buttonConfig[formattingName];

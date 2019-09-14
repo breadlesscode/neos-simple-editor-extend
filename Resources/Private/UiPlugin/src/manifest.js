@@ -7,6 +7,10 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
     const ckEditorConfig = globalRegistry.get('ckEditor5').get('config');
     const buttonConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:Buttons'];
 
+    if (!buttonConfig) {
+        return;
+    }
+
     Object.keys(buttonConfig).forEach((formattingName) => {
         const options = buttonConfig[formattingName];
         const commandName = options.extensionName + 'Command';
