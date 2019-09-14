@@ -7,7 +7,7 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
     const ckEditorConfig = globalRegistry.get('ckEditor5').get('config');
     const buttonConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:Buttons'];
 
-    if (!buttonConfig) {
+    if (!buttonConfig || typeof buttonConfig[Symbol.iterator] !== 'function') {
         return;
     }
 
