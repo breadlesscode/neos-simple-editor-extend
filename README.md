@@ -1,5 +1,11 @@
 # Neos simple editor extend
 
+[![Latest Stable Version](https://poser.pugx.org/breadlesscode/neos-simple-editor-extend/v/stable)](https://packagist.org/packages/breadlesscode/neos-simple-editor-extend)
+[![Downloads](https://img.shields.io/packagist/dt/breadlesscode/neos-simple-editor-extend.svg)](https://packagist.org/packages/breadlesscode/neos-simple-editor-extend)
+[![License](https://img.shields.io/github/license/breadlesscode/neos-simple-editor-extend.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/breadlesscode/neos-simple-editor-extend.svg?style=social&label=Stars)](https://github.com/breadlesscode/neos-simple-editor-extend/stargazers)
+[![GitHub watchers](https://img.shields.io/github/watchers/breadlesscode/neos-simple-editor-extend.svg?style=social&label=Watch)](https://github.com/breadlesscode/neos-simple-editor-extend/subscription)
+
 This is a small plugin to simply add some buttons to the Neos CMS CKEditor, without writing any JavaScript code. You only need to compose a YAML-File. 
 
 ## Installation
