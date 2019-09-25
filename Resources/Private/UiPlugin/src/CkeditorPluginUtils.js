@@ -1,7 +1,6 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecommand';
+import {Plugin} from 'ckeditor5-exports';
+// import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecommand';
 import {$add, $get} from 'plow-js';
-import ButtonComponent from './ButtonComponent';
 
 const getCkeditorPlugin = function(extensionName, commandName, formatting) {
     const attributeName = extensionName + 'Attribute';
@@ -25,7 +24,7 @@ const getCkeditorPlugin = function(extensionName, commandName, formatting) {
             this.editor.commands.add(commandName, new AttributeCommand(this.editor, attributeName));
         }
     }
-}
+};
 
 const getCkeditorPluginConfig = function(formattingName, ckeditorPlugin) {
     return (ckEditorConfiguration, options) => {
@@ -41,15 +40,15 @@ const getCkeditorPluginConfig = function(formattingName, ckeditorPlugin) {
     }
 };
 
-const getRichtextToolbarConfig = function(commandName, formattingName, icon, tooltip) {
+const getRichtextToolbarConfig = function(commandName, formattingName, icon, tooltip, component, componentConfiguration) {
     return {
         commandName: commandName,
         isActive: $get(commandName),
         isVisible: $get(['formatting', formattingName]),
-        component: ButtonComponent(commandName),
+        component: component(commandName, componentConfiguration),
         icon: icon,
         tooltip: tooltip,
     };
-}
+};
 
-export { getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig};
+export {getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig};

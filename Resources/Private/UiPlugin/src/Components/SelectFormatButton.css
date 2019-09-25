@@ -1,0 +1,12 @@
+.selectFormatButton__flyout {
+    --dialog-width: 460px;
+
+    background-color: var(--colors-ContrastDarker);
+    position: fixed;
+    z-index: var(--zIndex-SecondaryToolbar-LinkIconButtonFlyout);
+    width: var(--dialog-width);
+    left: 50%;
+    margin-left: calc(var(--dialog-width) * -.5);
+    border: var(--spacing-Half) solid var(--colors-ContrastDarker);
+}
+                                                                       
