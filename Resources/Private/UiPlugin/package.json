@@ -2,7 +2,7 @@
   "description": "Simple Neos editor extend plugin",
   "license": "MIT",
   "scripts": {
-    "build": "neos-react-scripts build",
+    "build": "NODE_ENV=production neos-react-scripts build",
     "watch": "neos-react-scripts watch"
   },
   "devDependencies": {

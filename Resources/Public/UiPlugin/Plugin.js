@@ -37305,7 +37305,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var ckEditorConfig = globalRegistry.get('ckEditor5').get('config');
     var buttonConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:Buttons'];
 
-    if (!buttonConfig || typeof buttonConfig[Symbol.iterator] !== 'function') {
+    if (!buttonConfig || Object.entries(buttonConfig).length === 0 && buttonConfig.constructor === Object) {
         return;
     }
 
