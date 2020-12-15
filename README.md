@@ -66,4 +66,4 @@ Now you can use your new formattings like this:
 ```
 
 ## License
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The GNU GENERAL PUBLIC LICENSE Version 3. Please see [License File](LICENSE) for more information.
