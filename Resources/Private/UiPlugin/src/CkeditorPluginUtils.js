@@ -1,5 +1,5 @@
 import {Plugin} from 'ckeditor5-exports';
-// import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecommand';
+import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecommand';
 import {$add, $get} from 'plow-js';
 
 const getCkeditorPlugin = function(extensionName, commandName, formatting) {

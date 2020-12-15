@@ -1,2 +1,2 @@
-// require('./manifest.buttons');
+require('./manifest.buttons');
 require('./manifest.dropdowns');
