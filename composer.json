@@ -2,7 +2,7 @@
     "name": "breadlesscode/neos-simple-editor-extend",
     "description": "The simlpe way to extend the Neos CMS editor",
     "type": "neos-plugin",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Marvin Kuhn",
