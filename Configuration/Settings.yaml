@@ -1,18 +1,6 @@
 Neos:
   Neos:
     Ui:
-      frontendConfiguration:
-        'Breadlesscode.SimpleEditorExtend:Buttons':
-          'Test.Test:MyCustomSpan':
-            extensionName: 'exampleExtension'
-            icon: 'plus-square'
-            tooltip: 'Mark the text in color green'
-            position: 'before strong'
-            formatting:
-              tag: 'span'
-              classes: 'test-class'
-              styles:
-                background-color: 'green'
       resources:
         javascript:
           'Breadlesscode.SimpleEditorExtend:UiPlugin':
