@@ -5,3 +5,6 @@ Neos:
         javascript:
           'Breadlesscode.SimpleEditorExtend:UiPlugin':
             resource: resource://Breadlesscode.SimpleEditorExtend/Public/UiPlugin/Plugin.js
+        stylesheets:
+          'Breadlesscode.SimpleEditorExtend:UiPlugin':
+            resource: resource://Breadlesscode.SimpleEditorExtend/Public/UiPlugin/Plugin.css

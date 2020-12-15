@@ -6,7 +6,9 @@
     "watch": "neos-react-scripts watch"
   },
   "devDependencies": {
-    "@neos-project/neos-ui-extensibility": "*"
+    "@neos-project/neos-ui-extensibility": "*",
+    "lodash.merge": "^4.6.2",
+    "lodash.omit": "^4.5.0"
   },
   "neos": {
     "buildTargetDirectory": "../../Public/UiPlugin"

@@ -1,0 +1,13 @@
+.SelectFormatButton__selectFormatButton__flyout___V_gnV {
+
+    background-color: #222;
+    position: fixed;
+    z-index: 1;
+    width: 460px;
+    left: 50%;
+    margin-left: calc(460px * -.5);
+    border: 8px solid #222;
+}
+                                                                       
+
+/*# sourceMappingURL=Plugin.css.map*/

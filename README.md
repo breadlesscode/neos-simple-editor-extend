@@ -6,22 +6,28 @@
 [![GitHub stars](https://img.shields.io/github/stars/breadlesscode/neos-simple-editor-extend.svg?style=social&label=Stars)](https://github.com/breadlesscode/neos-simple-editor-extend/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/breadlesscode/neos-simple-editor-extend.svg?style=social&label=Watch)](https://github.com/breadlesscode/neos-simple-editor-extend/subscription)
 
-This is a small plugin to simply add some buttons to the Neos CMS CKEditor, without writing any JavaScript code. You only need to compose a YAML-File. 
+This is a small plugin to simply add some buttons and dropdowns for formatting text to the Neos CMS CKEditor, without writing any JavaScript code. 
+You only need to compose a YAML-File. 
 
 ## Installation
-Most of the time you have to make small adjustments to a package (e.g., the configuration in Settings.yaml). Because of that, it is important to add the corresponding package to the composer from your theme package. Mostly this is the site package located under Packages/Sites/. To install it correctly go to your theme package (e.g.Packages/Sites/Foo.Bar) and run following command:
+Most of the time you have to make small adjustments to a package (e.g., the configuration in `Settings.yaml`). 
+Because of that, it is important to add the corresponding package to the composer from your theme package. 
+Mostly this is the site package located under `Packages/Sites/`. 
+To install it correctly go to your theme package (e.g. `Packages/Sites/Foo.Bar`) and run following command:
 
 ```bash
 composer require breadlesscode/neos-simple-editor-extend --no-update
 ```
 
-The --no-update command prevent the automatic update of the dependencies. After the package was added to your theme composer.json, go back to the root of the Neos installation and run composer update. Your desired package is now installed correctly.
+The --no-update command prevent the automatic update of the dependencies. 
+After the package was added to your theme `composer.json`, go back to the root of the Neos installation and run composer update. 
+Your desired package is now installed correctly.
 
 ## Demo
 
 ![result demo image](Documentation/preview.gif "Example for the configuration below")
 
-## Example configuration
+## Example configuration for applying a single style via a button
 
 ```yaml
 Neos:
@@ -63,6 +69,63 @@ Now you can use your new formattings like this:
             formatting:
               'Test.Test:MyCustomSpan': true
               'Test.Test:MyCustomSpan2': true
+```
+
+## Example configuration for applying one or more style via a dropdown
+
+```yaml
+Neos:
+  Neos:
+    Ui:
+      frontendConfiguration:  
+        'Breadlesscode.SimpleEditorExtend:Dropdowns':
+          'Breadlesscode.SimpleEditorExtend:Dropdowns.Colors':
+            extensionName: 'colorAndSizeDropdown'
+            icon: 'tint'
+            tooltip: 'Mark the text in different colors and sizes'
+            position: 'before strong'
+            formatting:
+              attributes:
+                color:
+                  label: 'Color'
+                  placeholder: 'Choose color'
+                  placeholderIcon: 'tint'
+                  options:
+                    - label: 'None'
+                      icon: 'eraser'
+                      model: ''
+                      class: ''
+                    - label: 'Gelb'
+                      model: 'yellow'
+                      class: 'font-color--primary'
+                    - label: 'Blau'
+                      model: 'blue'
+                      class: 'font-color--secondary'
+                size:
+                  label: 'Size'
+                  placeholder: 'Choose size'
+                  placeholderIcon: 'arrows-alt-v'
+                  options:
+                    - label: 'None'
+                      icon: 'eraser'
+                      model: ''
+                      class: ''
+                    - label: 'Very small'
+                      model: 'xxxsmall'
+                      class: 'font-size--xxxsmall'
+```
+
+Now you can use your new formattings like this:
+
+```yaml
+'Neos.NodeTypes.BaseMixins:TextMixin':
+  properties:
+    text:
+      ui:
+        inline:
+          editorOptions:
+            formatting:
+              'Breadlesscode.SimpleEditorExtend:Dropdowns.Colors': true
 ```
 
 ## License
