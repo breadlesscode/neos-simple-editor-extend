@@ -12,6 +12,7 @@ export default function (commandName) {
         static propTypes = {
             i18nRegistry: PropTypes.object,
             tooltip: PropTypes.string,
+            isActive: PropTypes.boolean,
         };
         handleClick = () => {
             // this command name must match the identifier of the command from examplePlugin.js, this.editor.commands.add(...)
@@ -22,6 +23,7 @@ export default function (commandName) {
                 onClick: this.handleClick,
                 title: this.props.i18nRegistry.translate(this.props.tooltip),
                 icon: this.props.icon,
+                isActive: this.props.isActive,
             };
             return <IconButton {...props} />;
         }
