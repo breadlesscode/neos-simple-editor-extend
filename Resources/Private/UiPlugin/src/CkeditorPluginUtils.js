@@ -52,4 +52,16 @@ const getRichtextToolbarConfig = function(commandName, formattingName, icon, too
     };
 }
 
-export { getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig};
+const getSelectToolbarConfig = function( formattingName, label) {
+    return {
+        commandName: 'heading',
+        commandArgs: [{
+            value: formattingName
+        }],
+        label: label,
+        isActive: $get('heading'),
+        isVisible: $get(['formatting', formattingName]),
+    };
+}
+
+export { getSelectToolbarConfig, getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig};
