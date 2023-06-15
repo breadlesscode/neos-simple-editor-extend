@@ -52,14 +52,14 @@ const getRichtextToolbarConfig = function(commandName, formattingName, icon, too
     };
 }
 
-const getSelectToolbarConfig = function( formattingName, label) {
+const getSelectToolbarConfig = function(formattingName, label) {
     return {
         commandName: 'heading',
         commandArgs: [{
             value: formattingName
         }],
         label: label,
-        isActive: $get('heading'),
+        isActive: formattingUnderCursor => $get('heading', formattingUnderCursor) === formattingName,
         isVisible: $get(['formatting', formattingName]),
     };
 }

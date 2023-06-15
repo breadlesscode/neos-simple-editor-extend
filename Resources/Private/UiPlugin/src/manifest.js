@@ -36,7 +36,7 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
             const options = selectConfig[formattingName]
 
             richtextToolbar.set(
-                'style/' + options.extensionName,
+                'style/' + formattingName,
                 getSelectToolbarConfig( formattingName, options.extensionName ),
                 options.position
             )
@@ -55,8 +55,9 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
             if (!Array.isArray(config?.heading?.options)) {  
                 config = configureHeadings(config)
             }
-            
-            config.heading.options.concat(headingOptions)
+            console.log(headingOptions)
+            config.heading.options = config.heading.options.concat(headingOptions)
+            console.log(config.heading.options)
 
             return config
         })
