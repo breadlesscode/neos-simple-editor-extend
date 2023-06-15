@@ -29,32 +29,36 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
     }
 
     if (selectConfig && selectConfig.constructor === Object && Object.entries(selectConfig).length !== 0) {
+        const configureHeadings = ckEditorConfig.get('configureHeadings')
+        const headingOptions = []
+
         Object.keys(selectConfig).forEach((formattingName) => {
             const options = selectConfig[formattingName]
-            const configureHeadings = ckEditorConfig.get('configureHeadings')
 
             richtextToolbar.set(
                 'style/' + options.extensionName,
                 getSelectToolbarConfig( formattingName, options.extensionName ),
                 options.position
             )
-
-            ckEditorConfig.set('configureHeadings', config => {
-                if (!Array.isArray(config?.heading?.options)) {  
-                    config = configureHeadings(config)
-                }
                 
-                config.heading.options.push( {
-                    model: formattingName,
-                    view: {
-                        name: options.formatting.tag,
-                        classes: options.formatting.classes,
-                        styles: options.formatting.styles
-                    }
-                })
-
-                return config
+            headingOptions.push({
+                model: formattingName,
+                view: {
+                    name: options.formatting.tag,
+                    classes: options.formatting.classes,
+                    styles: options.formatting.styles
+                }
             })
+        })
+
+        ckEditorConfig.set('configureHeadings', config => {
+            if (!Array.isArray(config?.heading?.options)) {  
+                config = configureHeadings(config)
+            }
+            
+            config.heading.options.concat(headingOptions)
+
+            return config
         })
     }
 })
