@@ -16,7 +16,7 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
                 options.extensionName,
                 getRichtextToolbarConfig(commandName, formattingName, options.icon, options.tooltip),
                 options.position
-            );
+            )
 
             ckEditorConfig.set(
                 options.extensionName,
@@ -24,44 +24,38 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
                     formattingName,
                     getCkeditorPlugin(options.extensionName, commandName, options.formatting)
                 )
-            );
-        });
+            )
+        })
     }
 
     if (selectConfig && selectConfig.constructor === Object && Object.entries(selectConfig).length !== 0) {
 
         Object.keys(selectConfig).forEach((formattingName) => {
-            const options = selectConfig[formattingName];
+            const options = selectConfig[formattingName]
 
             richtextToolbar.set(
                 'style/' + options.extensionName,
                 getSelectToolbarConfig( formattingName, options.extensionName ),
                 options.position
-            );
+            )
 
-            ckEditorConfig.set('configureHeadings', config => Object.assign(config, {
-                heading: {
-                    options: [
-                        // {model: 'paragraph'},
-                        // {model: 'heading1', view: 'h1'},
-                        // {model: 'heading2', view: 'h2'},
-                        // {model: 'heading3', view: 'h3'},
-                        // {model: 'heading4', view: 'h4'},
-                        // {model: 'heading5', view: 'h5'},
-                        // {model: 'heading6', view: 'h6'},
-                        // {model: 'pre', view: 'pre'}
-                        // ...config.heading.options,
-                        {
-                            model: formattingName,
-                            view: {
-                                name: options.formatting.tag,
-                                classes: options.formatting.classes,
-                                styles: options.formatting.styles
-                            }
-                        }]
-                }
-            }));
-        });
+            const configureHeadings = ckEditorConfig.get('configureHeadings')
+            ckEditorConfig.set('configureHeadings', config => {
+
+                config = configureHeadings(config)
+
+                config.heading.options.push( {
+                    model: formattingName,
+                    view: {
+                        name: options.formatting.tag,
+                        classes: options.formatting.classes,
+                        styles: options.formatting.styles
+                    }
+                })
+
+                return config
+            })
+        })
     }
 
-});
+})
