@@ -29,9 +29,9 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
     }
 
     if (selectConfig && selectConfig.constructor === Object && Object.entries(selectConfig).length !== 0) {
-
         Object.keys(selectConfig).forEach((formattingName) => {
             const options = selectConfig[formattingName]
+            const configureHeadings = ckEditorConfig.get('configureHeadings')
 
             richtextToolbar.set(
                 'style/' + options.extensionName,
@@ -39,11 +39,9 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
                 options.position
             )
 
-            const configureHeadings = ckEditorConfig.get('configureHeadings')
             ckEditorConfig.set('configureHeadings', config => {
-
                 config = configureHeadings(config)
-
+                
                 config.heading.options.push( {
                     model: formattingName,
                     view: {
@@ -57,5 +55,4 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
             })
         })
     }
-
 })
