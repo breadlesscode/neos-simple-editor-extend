@@ -40,7 +40,9 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
             )
 
             ckEditorConfig.set('configureHeadings', config => {
-                config = configureHeadings(config)
+                if (!Array.isArray(config?.heading?.options)) {  
+                    config = configureHeadings(config)
+                }
                 
                 config.heading.options.push( {
                     model: formattingName,
