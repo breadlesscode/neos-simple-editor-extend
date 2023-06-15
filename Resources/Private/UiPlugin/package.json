@@ -1,17 +1,18 @@
 {
-  "description": "Simple Neos editor extend plugin",
-  "license": "MIT",
-  "scripts": {
-    "build": "NODE_ENV=production neos-react-scripts build",
-    "watch": "neos-react-scripts watch"
-  },
-  "devDependencies": {
-    "@neos-project/neos-ui-extensibility": "*"
-  },
-  "neos": {
-    "buildTargetDirectory": "../../Public/UiPlugin"
-  },
-  "dependencies": {
-    "@ckeditor/ckeditor5-basic-styles": "^10.0.0"
-  }
+    "description": "Simple Neos editor extend plugin",
+    "license": "MIT",
+    "scripts": {
+        "build": "node src/build.js",
+        "watch": "node src/build.js --watch"
+    },
+    "devDependencies": {
+        "@neos-project/neos-ui-extensibility": "*",
+        "esbuild": "~0.17.18"
+    },
+    "neos": {
+        "buildTargetDirectory": "../../Public/UiPlugin"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-basic-styles": "^10.0.0"
+    }
 }
