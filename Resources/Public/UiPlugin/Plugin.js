@@ -111,6 +111,55 @@
     }
   });
 
+  // node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/ckeditor5-exports/index.js
+  var require_ckeditor5_exports = __commonJS({
+    "node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/ckeditor5-exports/index.js"(exports2, module2) {
+      init_readFromConsumerApi();
+      module2.exports = readFromConsumerApi("vendor")().CkEditor5;
+    }
+  });
+
+  // src/AllowAttributesPlugin.js
+  function stylesToString(styles) {
+    return Object.keys(styles).map((style) => style + ":" + styles[style]).join(";");
+  }
+  var import_ckeditor5_exports, AllowAttributesPlugin_default;
+  var init_AllowAttributesPlugin = __esm({
+    "src/AllowAttributesPlugin.js"() {
+      import_ckeditor5_exports = __toESM(require_ckeditor5_exports());
+      AllowAttributesPlugin_default = (presetConfiguration) => class AllowAttributesPlugin extends import_ckeditor5_exports.Plugin {
+        init() {
+          const styleIds = Object.keys(presetConfiguration);
+          const config = {
+            model: {
+              key: "AllowAttributesPlugin",
+              values: styleIds
+            },
+            view: {}
+          };
+          styleIds.forEach((styleId) => {
+            const formattingOptions = presetConfiguration[styleId].formatting;
+            let newConfig = {
+              name: formattingOptions.tag,
+              attributes: {}
+            };
+            if (formattingOptions.classes) {
+              newConfig.attributes.class = formattingOptions.classes;
+            }
+            if (formattingOptions.style) {
+              newConfig.attributes.style = stylesToString(formattingOptions.styles);
+            }
+            this.editor.model.schema.extend("$text", { allowAttributes: styleId });
+            this.editor.model.schema.setAttributeProperties(styleId, { isFormatting: true });
+            config.view[styleId] = newConfig;
+            console.log(config);
+          });
+          this.editor.conversion.attributeToElement(config);
+        }
+      };
+    }
+  });
+
   // node_modules/@ckeditor/ckeditor5-utils/src/spy.js
   function spy() {
     return function spy2() {
@@ -1676,12 +1725,12 @@
   });
 
   // node_modules/@ckeditor/ckeditor5-core/src/plugin.js
-  var Plugin;
+  var Plugin2;
   var init_plugin = __esm({
     "node_modules/@ckeditor/ckeditor5-core/src/plugin.js"() {
       init_observablemixin();
       init_mix();
-      Plugin = class {
+      Plugin2 = class {
         /**
          * @inheritDoc
          */
@@ -1695,7 +1744,7 @@
           this.stopListening();
         }
       };
-      mix(Plugin, observablemixin_default);
+      mix(Plugin2, observablemixin_default);
     }
   });
 
@@ -1979,7 +2028,7 @@
       init_ButtonComponent();
       getCkeditorPlugin = function(extensionName, commandName, formatting) {
         const attributeName = extensionName + "Attribute";
-        return class extends Plugin {
+        return class extends Plugin2 {
           static get pluginName() {
             return extensionName;
           }
@@ -2040,10 +2089,12 @@
   var init_manifest2 = __esm({
     "src/manifest.js"() {
       init_dist();
+      init_AllowAttributesPlugin();
       init_CkeditorPluginUtils();
       dist_default("Breadlesscode.SimpleEditorExtend:UiPlugin", {}, (globalRegistry, { frontendConfiguration }) => {
-        const richtextToolbar = globalRegistry.get("ckEditor5").get("richtextToolbar");
-        const ckEditorConfig = globalRegistry.get("ckEditor5").get("config");
+        const ckEditor = globalRegistry.get("ckEditor5");
+        const richtextToolbar = ckEditor.get("richtextToolbar");
+        const ckEditorConfig = ckEditor.get("config");
         const buttonConfig = frontendConfiguration["Breadlesscode.SimpleEditorExtend:Buttons"];
         const selectConfig = frontendConfiguration["Breadlesscode.SimpleEditorExtend:HeadingSelect"];
         if (buttonConfig && buttonConfig.constructor === Object && Object.entries(buttonConfig).length !== 0) {
@@ -2087,9 +2138,9 @@
             if (!Array.isArray(config?.heading?.options)) {
               config = configureHeadings(config);
             }
-            console.log(headingOptions);
             config.heading.options = config.heading.options.concat(headingOptions);
-            console.log(config.heading.options);
+            config.plugins = config.plugins || [];
+            config.plugins.push(AllowAttributesPlugin_default(selectConfig));
             return config;
           });
         }

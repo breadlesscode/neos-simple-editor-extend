@@ -1,9 +1,11 @@
 import manifest from '@neos-project/neos-ui-extensibility';
+import AllowAttributesPlugin from './AllowAttributesPlugin'
 import {getSelectToolbarConfig, getCkeditorPlugin, getCkeditorPluginConfig, getRichtextToolbarConfig} from './CkeditorPluginUtils';
 
 manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { frontendConfiguration }) => {
-    const richtextToolbar = globalRegistry.get('ckEditor5').get('richtextToolbar');
-    const ckEditorConfig = globalRegistry.get('ckEditor5').get('config');
+    const ckEditor = globalRegistry.get('ckEditor5')
+    const richtextToolbar = ckEditor.get('richtextToolbar');
+    const ckEditorConfig = ckEditor.get('config');
     const buttonConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:Buttons'];
     const selectConfig = frontendConfiguration['Breadlesscode.SimpleEditorExtend:HeadingSelect'];
 
@@ -55,9 +57,10 @@ manifest('Breadlesscode.SimpleEditorExtend:UiPlugin', {}, (globalRegistry, { fro
             if (!Array.isArray(config?.heading?.options)) {  
                 config = configureHeadings(config)
             }
-            console.log(headingOptions)
+
             config.heading.options = config.heading.options.concat(headingOptions)
-            console.log(config.heading.options)
+            config.plugins = config.plugins || [];
+            config.plugins.push(AllowAttributesPlugin(selectConfig));
 
             return config
         })
