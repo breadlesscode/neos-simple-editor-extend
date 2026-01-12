@@ -10,5 +10,5 @@ insert_final_newline = false
 [*.{php,yaml}]
 insert_final_newline = true
 
-[*.yaml]
+[*.{json,yaml}]
 indent_size = 2

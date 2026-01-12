@@ -6,7 +6,8 @@
     "watch": "neos-react-scripts watch"
   },
   "devDependencies": {
-    "@neos-project/neos-ui-extensibility": "*"
+    "@neos-project/neos-ui-extensibility-webpack-adapter": "^9.0.1",
+    "plow-js": "^3.0.0"
   },
   "neos": {
     "buildTargetDirectory": "../../Public/UiPlugin"
