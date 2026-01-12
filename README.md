@@ -49,6 +49,8 @@ Neos:
               classes: 'test-class-2'
               styles:
                 background-color: 'red'
+              attributes:
+                data-example: 'true'
 ```
 
 Now you can use your new formattings like this:

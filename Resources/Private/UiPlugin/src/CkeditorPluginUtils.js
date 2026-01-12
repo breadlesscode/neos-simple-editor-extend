@@ -3,6 +3,19 @@ import AttributeCommand from '@ckeditor/ckeditor5-basic-styles/src/attributecomm
 import {$add, $get} from 'plow-js';
 import ButtonComponent from './ButtonComponent';
 
+const sanitizeAttributes = function(formatting) {
+    let attributes = undefined;
+    if (typeof formatting.attributes === 'object' && formatting.attributes !== null) {
+        Object.entries(formatting.attributes).forEach(([key, value]) => {
+            if (typeof value === 'string') {
+                attributes = attributes || {};
+                attributes[key] = value;
+            }
+        });
+    }
+    return attributes;
+};
+
 const getCkeditorPlugin = function(extensionName, commandName, formatting) {
     const attributeName = extensionName + 'Attribute';
 
@@ -16,6 +29,7 @@ const getCkeditorPlugin = function(extensionName, commandName, formatting) {
                 view: {
                     name: formatting.tag,
                     classes: formatting.classes,
+                    attributes: sanitizeAttributes(formatting),
                     styles: formatting.styles
                 }
             };
